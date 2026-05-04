@@ -1127,57 +1127,65 @@
         </div>
     </section>
 
-    <!-- PERSONAL DATA FORM -->
-    <section class="personal-data-section" id="datos-personales">
+        <!-- CALCULADORA NUTRISANA - Sección Única -->
+    <section class="personal-data-section" id="calculadora">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Calcula tus Necesidades</span>
-                <h2>Conoce tu Consumo Ideal de Calorías</h2>
-                <p>Ingresa tus datos para calcular tu metabolismo basal y las calorías que necesitas al día</p>
+                <span class="section-tag">Tu Calculadora Personal</span>
+                <h2>Calcula tus Calorías y Arma tu Menú</h2>
+                <p>Ingresa tus datos para conocer tu metabolismo basal, y luego selecciona los alimentos que consumes</p>
             </div>
 
             <div class="form-container">
-                <div class="gender-group" id="genderGroup">
-                    <div class="gender-option" data-gender="female" onclick="selectGender('female')">
-                        <span class="emoji">👩</span>
-                        <span class="label">Mujer</span>
+                <!-- PASO 1: Datos Personales -->
+                <div id="step1">
+                    <h3 style="color:var(--secondary);margin-bottom:20px;font-size:1.2rem;">📋 Paso 1: Tus Datos</h3>
+
+                    <div class="gender-group" id="genderGroup">
+                        <div class="gender-option" data-gender="female" onclick="selectGender('female')">
+                            <span class="emoji">👩</span>
+                            <span class="label">Mujer</span>
+                        </div>
+                        <div class="gender-option" data-gender="male" onclick="selectGender('male')">
+                            <span class="emoji">👨</span>
+                            <span class="label">Hombre</span>
+                        </div>
                     </div>
-                    <div class="gender-option" data-gender="male" onclick="selectGender('male')">
-                        <span class="emoji">👨</span>
-                        <span class="label">Hombre</span>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="age">Edad (años)</label>
+                            <input type="number" id="age" placeholder="Ej: 25" min="10" max="120">
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Peso (kg)</label>
+                            <input type="number" id="weight" placeholder="Ej: 70" min="20" max="300" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="height">Estatura (cm)</label>
+                            <input type="number" id="height" placeholder="Ej: 170" min="50" max="250">
+                        </div>
+                        <div class="form-group">
+                            <label for="activity">Nivel de Actividad</label>
+                            <select id="activity">
+                                <option value="1.2">Sedentario (poco o nada de ejercicio)</option>
+                                <option value="1.375">Ligero (ejercicio 1-3 días/semana)</option>
+                                <option value="1.55" selected>Moderado (ejercicio 3-5 días/semana)</option>
+                                <option value="1.725">Activo (ejercicio 6-7 días/semana)</option>
+                                <option value="1.9">Muy Activo (ejercicio intenso diario)</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <button class="btn btn-primary calculate-btn" onclick="calculateCalories()">
+                        🧮 Calcular mis Calorías
+                    </button>
                 </div>
 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="age">Edad (años)</label>
-                        <input type="number" id="age" placeholder="Ej: 25" min="10" max="120">
-                    </div>
-                    <div class="form-group">
-                        <label for="weight">Peso (kg)</label>
-                        <input type="number" id="weight" placeholder="Ej: 70" min="20" max="300" step="0.1">
-                    </div>
-                    <div class="form-group">
-                        <label for="height">Estatura (cm)</label>
-                        <input type="number" id="height" placeholder="Ej: 170" min="50" max="250">
-                    </div>
-                    <div class="form-group">
-                        <label for="activity">Nivel de Actividad</label>
-                        <select id="activity">
-                            <option value="1.2">Sedentario (poco o nada de ejercicio)</option>
-                            <option value="1.375">Ligero (ejercicio 1-3 días/semana)</option>
-                            <option value="1.55" selected>Moderado (ejercicio 3-5 días/semana)</option>
-                            <option value="1.725">Activo (ejercicio 6-7 días/semana)</option>
-                            <option value="1.9">Muy Activo (ejercicio intenso diario)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <button class="btn btn-primary calculate-btn" onclick="calculateCalories()">
-                    🧮 Calcular mis Calorías
-                </button>
-
+                <!-- PASO 2: Resultados (aparece tras calcular) -->
                 <div class="results-panel" id="resultsPanel">
+                    <h3 style="color:var(--secondary);margin-bottom:20px;font-size:1.2rem;">📊 Paso 2: Tus Resultados</h3>
+
                     <div class="results-grid">
                         <div class="result-card">
                             <div class="value" id="tmbValue">0</div>
@@ -1223,185 +1231,86 @@
                         <p style="margin-top:12px;font-size:0.75rem;color:rgba(255,255,255,0.5);border-top:1px solid rgba(255,255,255,0.1);padding-top:10px;">
                             📚 <strong>Metodología:</strong> Ecuación Mifflin-St Jeor (1990) × factor actividad ACE. 
                             <a href="https://pubmed.ncbi.nlm.nih.gov/38220405/" target="_blank" style="color:var(--secondary);">Estudios recientes</a> 
-                            confirman que esta ecuación tiene la mayor precisión (~73%) y menor sesgo comparada con Harris-Benedict. 
+                            confirman que esta ecuación tiene la mayor precisión (~73%) y menor sesgo. 
                             Sin embargo, todas las fórmulas predictivas tienen margen de error. Para mayor precisión, considera calorimetría indirecta.
                         </p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
+                <!-- PASO 3: Selector de Alimentos (aparece tras calcular) -->
+                <div id="step3" style="display:none;margin-top:40px;">
+                    <h3 style="color:var(--secondary);margin-bottom:20px;font-size:1.2rem;">🍽️ Paso 3: Arma tu Menú</h3>
+                    <p style="color:rgba(255,255,255,0.8);margin-bottom:20px;font-size:0.95rem;">
+                        Tu meta diaria personalizada: <strong id="userCalorieDisplay" style="color:var(--secondary);font-size:1.3rem;">2000</strong> kcal
+                    </p>
 
-    <!-- PROFILE CALCULATOR SECTION -->
-    <section class="profile-section" id="perfil">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Calculadora Personalizada</span>
-                <h2>Descubre tus Calorías Diarias</h2>
-                <p>Ingresa tus datos y te diremos cuántas calorías deberías consumir cada día</p>
-            </div>
+                    <div class="calculator-container" style="display:grid;grid-template-columns:1fr 1fr;gap:30px;">
+                        <!-- Left: Food Selector -->
+                        <div class="food-selector" style="background:rgba(255,255,255,0.05);border-radius:20px;padding:25px;border:1px solid rgba(255,255,255,0.1);">
+                            <h4 style="color:white;margin-bottom:15px;font-size:1rem;">🔍 Busca y Selecciona</h4>
 
-            <div class="profile-container">
-                <div class="profile-form">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="gender">⚥ Género</label>
-                            <select id="gender">
-                                <option value="">Selecciona...</option>
-                                <option value="male">Hombre</option>
-                                <option value="female">Mujer</option>
-                            </select>
-                        </div>
+                            <input type="text" class="search-box" id="searchBox" placeholder="Buscar alimento..." style="background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:white;">
 
-                        <div class="form-group">
-                            <label for="age">🎂 Edad (años)</label>
-                            <input type="number" id="age" placeholder="Ej: 25" min="10" max="120">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="weight">⚖️ Peso (kg)</label>
-                            <input type="number" id="weight" placeholder="Ej: 70" min="20" max="300" step="0.1">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="height">📏 Estatura (cm)</label>
-                            <input type="number" id="height" placeholder="Ej: 170" min="50" max="250">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="activity">🏃 Nivel de Actividad</label>
-                            <select id="activity">
-                                <option value="">Selecciona...</option>
-                                <option value="1.2">Sedentario (poco o nada de ejercicio)</option>
-                                <option value="1.375">Ligero (ejercicio 1-3 días/semana)</option>
-                                <option value="1.55">Moderado (ejercicio 3-5 días/semana)</option>
-                                <option value="1.725">Activo (ejercicio 6-7 días/semana)</option>
-                                <option value="1.9">Muy Activo (ejercicio intenso diario)</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="goal">🎯 Objetivo</label>
-                            <select id="goal">
-                                <option value="maintain">Mantener peso</option>
-                                <option value="lose">Perder peso (-500 kcal)</option>
-                                <option value="gain">Ganar peso (+500 kcal)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button class="btn btn-primary calculate-btn" onclick="calculateCalories()">
-                        🧮 Calcular mis Calorías Diarias
-                    </button>
-                </div>
-
-                <div class="result-card" id="resultCard">
-                    <h3>📊 Tu Resultado Personalizado</h3>
-                    <div class="result-number" id="resultNumber">0</div>
-                    <div class="result-label">calorías recomendadas por día</div>
-
-                    <span class="bmi-indicator" id="bmiIndicator">--</span>
-
-                    <div class="result-details">
-                        <div class="result-detail">
-                            <div class="value" id="bmiValue">--</div>
-                            <div class="label">IMC (Índice de Masa Corporal)</div>
-                        </div>
-                        <div class="result-detail">
-                            <div class="value" id="bmrValue">--</div>
-                            <div class="label">Metabolismo Basal (BMR)</div>
-                        </div>
-                        <div class="result-detail">
-                            <div class="value" id="tdeeValue">--</div>
-                            <div class="label">Gasto Energético Total (TDEE)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CALCULATOR SECTION -->
-    <section class="calculator-section" id="calculadora">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Calculadora de Calorías</span>
-                <h2>Registra tu Consumo Diario</h2>
-                <p>Selecciona los alimentos que consumes y compara con tu meta personalizada</p>
-            </div>
-
-            <div class="calculator-container">
-                <div class="food-selector">
-                    <h3>🍽️ Selecciona tus Alimentos</h3>
-
-                    <input type="text" class="search-box" id="searchBox" placeholder="🔍 Buscar alimento...">
-
-                    <div class="food-categories" id="foodCategories">
-                        <button class="category-btn active" data-category="all">Todos</button>
-                        <button class="category-btn" data-category="frutas">Frutas</button>
-                        <button class="category-btn" data-category="verduras">Verduras</button>
-                        <button class="category-btn" data-category="proteinas">Proteínas</button>
-                        <button class="category-btn" data-category="granos">Granos</button>
-                        <button class="category-btn" data-category="lacteos">Lácteos</button>
-                        <button class="category-btn" data-category="snacks">Snacks</button>
-                        <button class="category-btn" data-category="bebidas">Bebidas</button>
-                    </div>
-
-                    <div class="food-list" id="foodList"></div>
-                </div>
-
-                <div class="summary-panel">
-                    <h3>📊 Tu Resumen</h3>
-
-                    <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 15px; margin-bottom: 20px;">
-                        <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 5px;">Tu meta diaria:</div>
-                        <div style="font-size: 1.3rem; font-weight: 700; color: var(--secondary);" id="dailyGoalDisplay">2000 kcal</div>
-                    </div>
-
-                    <div class="selected-items" id="selectedItems">
-                        <div class="empty-state">
-                            <span class="emoji">🍽️</span>
-                            <p>Aún no has seleccionado alimentos.<br>Toca el + para agregarlos.</p>
-                        </div>
-                    </div>
-
-                    <div class="total-section" id="totalSection" style="display:none;">
-                        <div class="total-row">
-                            <span>Total de Alimentos:</span>
-                            <span id="totalItems">0</span>
-                        </div>
-                        <div class="total-row">
-                            <span>Porciones:</span>
-                            <span id="totalPortions">0</span>
-                        </div>
-                        <div class="total-row total">
-                            <span>Calorías Consumidas:</span>
-                            <span id="totalCalories">0 kcal</span>
-                        </div>
-
-                        <div class="progress-container">
-                            <div class="progress-label">
-                                <span id="progressLabel">Progreso vs meta diaria</span>
-                                <span id="progressPercent">0%</span>
+                            <div class="food-categories" id="foodCategories" style="margin-bottom:15px;">
+                                <button class="category-btn active" data-category="all">Todos</button>
+                                <button class="category-btn" data-category="frutas">Frutas</button>
+                                <button class="category-btn" data-category="verduras">Verduras</button>
+                                <button class="category-btn" data-category="proteinas">Proteínas</button>
+                                <button class="category-btn" data-category="granos">Granos</button>
+                                <button class="category-btn" data-category="lacteos">Lácteos</button>
+                                <button class="category-btn" data-category="snacks">Snacks</button>
+                                <button class="category-btn" data-category="bebidas">Bebidas</button>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+
+                            <div class="food-list" id="foodList" style="max-height:350px;"></div>
+                        </div>
+
+                        <!-- Right: Summary -->
+                        <div class="summary-panel" id="summaryPanel" style="position:static;">
+                            <h4 style="color:var(--secondary);margin-bottom:15px;font-size:1rem;">📊 Tu Consumo</h4>
+
+                            <div class="selected-items" id="selectedItems" style="max-height:250px;">
+                                <div class="empty-state">
+                                    <span class="emoji">🍽️</span>
+                                    <p>Aún no has seleccionado alimentos.<br>Toca el + para agregarlos.</p>
+                                </div>
+                            </div>
+
+                            <div class="total-section" id="totalSection" style="display:none;">
+                                <div class="total-row">
+                                    <span>Alimentos:</span>
+                                    <span id="totalItems">0</span>
+                                </div>
+                                <div class="total-row">
+                                    <span>Porciones:</span>
+                                    <span id="totalPortions">0</span>
+                                </div>
+                                <div class="total-row total">
+                                    <span>Calorías:</span>
+                                    <span id="totalCalories">0 kcal</span>
+                                </div>
+
+                                <div class="progress-container">
+                                    <div class="progress-label">
+                                        <span id="progressLabel">Meta: 2000 kcal</span>
+                                        <span id="progressPercent">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+
+                                <div id="calorieStatus" style="margin-top:10px;padding:8px;border-radius:8px;text-align:center;font-size:0.8rem;font-weight:600;"></div>
+
+                                <button class="btn btn-danger btn-small clear-btn" id="clearBtn" style="margin-top:10px;">🗑️ Vaciar</button>
                             </div>
                         </div>
-
-                        <div style="margin-top: 15px; font-size: 0.85rem; color: rgba(255,255,255,0.7); text-align: center;" id="remainingCalories">
-                            Te quedan 2000 kcal para hoy
-                        </div>
-
-                        <button class="btn btn-danger btn-small clear-btn" id="clearBtn">🗑️ Vaciar Lista</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- FOOD GUIDE -->
+<!-- FOOD GUIDE -->
     <section class="food-guide-section" id="alimentos">
         <div class="container">
             <div class="section-header">
@@ -1952,7 +1861,250 @@
 
         // ========== INIT ==========
         renderFoodList();
-    </script>
+    
+        // ========== FOOD DATABASE ==========
+        const foodDatabase = [
+            { id: 1, name: "Manzana", emoji: "🍎", calories: 52, category: "frutas", unit: "por 100g" },
+            { id: 2, name: "Plátano", emoji: "🍌", calories: 89, category: "frutas", unit: "por 100g" },
+            { id: 3, name: "Naranja", emoji: "🍊", calories: 47, category: "frutas", unit: "por 100g" },
+            { id: 4, name: "Fresa", emoji: "🍓", calories: 32, category: "frutas", unit: "por 100g" },
+            { id: 5, name: "Uva", emoji: "🍇", calories: 69, category: "frutas", unit: "por 100g" },
+            { id: 6, name: "Sandía", emoji: "🍉", calories: 30, category: "frutas", unit: "por 100g" },
+            { id: 7, name: "Mango", emoji: "🥭", calories: 60, category: "frutas", unit: "por 100g" },
+            { id: 8, name: "Piña", emoji: "🍍", calories: 50, category: "frutas", unit: "por 100g" },
+            { id: 9, name: "Pera", emoji: "🍐", calories: 57, category: "frutas", unit: "por 100g" },
+            { id: 10, name: "Durazno", emoji: "🍑", calories: 39, category: "frutas", unit: "por 100g" },
+            { id: 11, name: "Lechuga", emoji: "🥬", calories: 15, category: "verduras", unit: "por 100g" },
+            { id: 12, name: "Tomate", emoji: "🍅", calories: 18, category: "verduras", unit: "por 100g" },
+            { id: 13, name: "Zanahoria", emoji: "🥕", calories: 41, category: "verduras", unit: "por 100g" },
+            { id: 14, name: "Brócoli", emoji: "🥦", calories: 34, category: "verduras", unit: "por 100g" },
+            { id: 15, name: "Pepino", emoji: "🥒", calories: 16, category: "verduras", unit: "por 100g" },
+            { id: 16, name: "Papa", emoji: "🥔", calories: 77, category: "verduras", unit: "por 100g" },
+            { id: 17, name: "Cebolla", emoji: "🧅", calories: 40, category: "verduras", unit: "por 100g" },
+            { id: 18, name: "Maíz", emoji: "🌽", calories: 86, category: "verduras", unit: "por 100g" },
+            { id: 19, name: "Champiñones", emoji: "🍄", calories: 22, category: "verduras", unit: "por 100g" },
+            { id: 20, name: "Espinaca", emoji: "🍃", calories: 23, category: "verduras", unit: "por 100g" },
+            { id: 21, name: "Pollo", emoji: "🍗", calories: 165, category: "proteinas", unit: "por 100g" },
+            { id: 22, name: "Carne de Res", emoji: "🥩", calories: 250, category: "proteinas", unit: "por 100g" },
+            { id: 23, name: "Pescado", emoji: "🐟", calories: 206, category: "proteinas", unit: "por 100g" },
+            { id: 24, name: "Huevo", emoji: "🥚", calories: 155, category: "proteinas", unit: "por 100g" },
+            { id: 25, name: "Camarones", emoji: "🦐", calories: 99, category: "proteinas", unit: "por 100g" },
+            { id: 26, name: "Salmón", emoji: "🐠", calories: 208, category: "proteinas", unit: "por 100g" },
+            { id: 27, name: "Atún", emoji: "🐟", calories: 132, category: "proteinas", unit: "por 100g" },
+            { id: 28, name: "Pavo", emoji: "🦃", calories: 135, category: "proteinas", unit: "por 100g" },
+            { id: 29, name: "Tofu", emoji: "🧊", calories: 76, category: "proteinas", unit: "por 100g" },
+            { id: 30, name: "Jamón", emoji: "🍖", calories: 145, category: "proteinas", unit: "por 100g" },
+            { id: 31, name: "Arroz Blanco", emoji: "🍚", calories: 130, category: "granos", unit: "por 100g" },
+            { id: 32, name: "Arroz Integral", emoji: "🌾", calories: 111, category: "granos", unit: "por 100g" },
+            { id: 33, name: "Pasta", emoji: "🍝", calories: 131, category: "granos", unit: "por 100g" },
+            { id: 34, name: "Pan Blanco", emoji: "🍞", calories: 265, category: "granos", unit: "por 100g" },
+            { id: 35, name: "Pan Integral", emoji: "🥖", calories: 247, category: "granos", unit: "por 100g" },
+            { id: 36, name: "Avena", emoji: "🥣", calories: 389, category: "granos", unit: "por 100g" },
+            { id: 37, name: "Quinoa", emoji: "🌾", calories: 120, category: "granos", unit: "por 100g" },
+            { id: 38, name: "Tortilla", emoji: "🌮", calories: 218, category: "granos", unit: "por 100g" },
+            { id: 39, name: "Cereal", emoji: "🥣", calories: 379, category: "granos", unit: "por 100g" },
+            { id: 40, name: "Galletas", emoji: "🍪", calories: 502, category: "granos", unit: "por 100g" },
+            { id: 41, name: "Leche", emoji: "🥛", calories: 42, category: "lacteos", unit: "por 100ml" },
+            { id: 42, name: "Queso", emoji: "🧀", calories: 402, category: "lacteos", unit: "por 100g" },
+            { id: 43, name: "Yogurt", emoji: "🥣", calories: 59, category: "lacteos", unit: "por 100g" },
+            { id: 44, name: "Mantequilla", emoji: "🧈", calories: 717, category: "lacteos", unit: "por 100g" },
+            { id: 45, name: "Helado", emoji: "🍦", calories: 207, category: "lacteos", unit: "por 100g" },
+            { id: 46, name: "Crema", emoji: "🥛", calories: 345, category: "lacteos", unit: "por 100g" },
+            { id: 47, name: "Papas Fritas", emoji: "🍟", calories: 536, category: "snacks", unit: "por 100g" },
+            { id: 48, name: "Chocolate", emoji: "🍫", calories: 546, category: "snacks", unit: "por 100g" },
+            { id: 49, name: "Dulces", emoji: "🍬", calories: 400, category: "snacks", unit: "por 100g" },
+            { id: 50, name: "Palomitas", emoji: "🍿", calories: 387, category: "snacks", unit: "por 100g" },
+            { id: 51, name: "Nueces", emoji: "🥜", calories: 607, category: "snacks", unit: "por 100g" },
+            { id: 52, name: "Almendras", emoji: "🌰", calories: 579, category: "snacks", unit: "por 100g" },
+            { id: 53, name: "Chips", emoji: "🥨", calories: 536, category: "snacks", unit: "por 100g" },
+            { id: 54, name: "Donut", emoji: "🍩", calories: 452, category: "snacks", unit: "por unidad" },
+            { id: 55, name: "Pastel", emoji: "🍰", calories: 371, category: "snacks", unit: "por 100g" },
+            { id: 56, name: "Pizza", emoji: "🍕", calories: 266, category: "snacks", unit: "por rebanada" },
+            { id: 57, name: "Agua", emoji: "💧", calories: 0, category: "bebidas", unit: "por 100ml" },
+            { id: 58, name: "Café", emoji: "☕", calories: 2, category: "bebidas", unit: "por 100ml" },
+            { id: 59, name: "Té", emoji: "🍵", calories: 1, category: "bebidas", unit: "por 100ml" },
+            { id: 60, name: "Jugo de Naranja", emoji: "🧃", calories: 45, category: "bebidas", unit: "por 100ml" },
+            { id: 61, name: "Refresco", emoji: "🥤", calories: 42, category: "bebidas", unit: "por 100ml" },
+            { id: 62, name: "Cerveza", emoji: "🍺", calories: 43, category: "bebidas", unit: "por 100ml" },
+            { id: 63, name: "Vino", emoji: "🍷", calories: 83, category: "bebidas", unit: "por 100ml" },
+            { id: 64, name: "Batido", emoji: "🥤", calories: 112, category: "bebidas", unit: "por 100ml" },
+            { id: 65, name: "Energética", emoji: "⚡", calories: 45, category: "bebidas", unit: "por 100ml" },
+            { id: 66, name: "Leche con Chocolate", emoji: "🥛", calories: 83, category: "bebidas", unit: "por 100ml" }
+        ];
+
+        let selectedFoods = [];
+        let currentCategory = 'all';
+        let userDailyCalories = 2000;
+
+        // ========== FOOD LIST FUNCTIONS ==========
+        function renderFoodList(filter = '', category = 'all') {
+            const foodList = document.getElementById('foodList');
+            if (!foodList) return;
+
+            let filtered = foodDatabase;
+            if (category !== 'all') {
+                filtered = filtered.filter(f => f.category === category);
+            }
+            if (filter) {
+                filtered = filtered.filter(f => f.name.toLowerCase().includes(filter.toLowerCase()));
+            }
+
+            if (filtered.length === 0) {
+                foodList.innerHTML = '<div class="empty-state"><span class="emoji">🔍</span><p>No se encontraron alimentos</p></div>';
+                return;
+            }
+
+            foodList.innerHTML = filtered.map(food => `
+                <div class="food-option" onclick="addFood(${food.id})">
+                    <div class="food-info">
+                        <span class="emoji">${food.emoji}</span>
+                        <div>
+                            <div class="name">${food.name}</div>
+                            <div class="cal">${food.calories} kcal ${food.unit}</div>
+                        </div>
+                    </div>
+                    <button class="add-btn">+</button>
+                </div>
+            `).join('');
+        }
+
+        function addFood(id) {
+            const food = foodDatabase.find(f => f.id === id);
+            const existing = selectedFoods.find(f => f.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                selectedFoods.push({ ...food, qty: 1 });
+            }
+            renderSummary();
+        }
+
+        function updateQty(id, change) {
+            const item = selectedFoods.find(f => f.id === id);
+            if (!item) return;
+            item.qty += change;
+            if (item.qty <= 0) {
+                selectedFoods = selectedFoods.filter(f => f.id !== id);
+            }
+            renderSummary();
+        }
+
+        function removeFood(id) {
+            selectedFoods = selectedFoods.filter(f => f.id !== id);
+            renderSummary();
+        }
+
+        function renderSummary() {
+            const selectedItems = document.getElementById('selectedItems');
+            const totalSection = document.getElementById('totalSection');
+            const totalItems = document.getElementById('totalItems');
+            const totalPortions = document.getElementById('totalPortions');
+            const totalCalories = document.getElementById('totalCalories');
+            const progressPercent = document.getElementById('progressPercent');
+            const progressFill = document.getElementById('progressFill');
+            const progressLabel = document.getElementById('progressLabel');
+            const calorieStatus = document.getElementById('calorieStatus');
+
+            if (!selectedItems) return;
+
+            if (selectedFoods.length === 0) {
+                selectedItems.innerHTML = `
+                    <div class="empty-state">
+                        <span class="emoji">🍽️</span>
+                        <p>Aún no has seleccionado alimentos.<br>Toca el + para agregarlos.</p>
+                    </div>
+                `;
+                if (totalSection) totalSection.style.display = 'none';
+                return;
+            }
+
+            const totalCal = selectedFoods.reduce((sum, f) => sum + (f.calories * f.qty), 0);
+            const totalQty = selectedFoods.reduce((sum, f) => sum + f.qty, 0);
+            const percent = Math.min((totalCal / userDailyCalories) * 100, 100);
+
+            selectedItems.innerHTML = selectedFoods.map(food => `
+                <div class="selected-item">
+                    <div class="item-info">
+                        <span class="emoji">${food.emoji}</span>
+                        <span class="name">${food.name}</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="updateQty(${food.id}, -1)">−</button>
+                            <span class="qty">${food.qty}</span>
+                            <button class="qty-btn" onclick="updateQty(${food.id}, 1)">+</button>
+                        </div>
+                        <span class="item-cal">${food.calories * food.qty} kcal</span>
+                        <button class="remove-btn" onclick="removeFood(${food.id})">×</button>
+                    </div>
+                </div>
+            `).join('');
+
+            if (totalSection) totalSection.style.display = 'block';
+            if (totalItems) totalItems.textContent = selectedFoods.length;
+            if (totalPortions) totalPortions.textContent = totalQty;
+            if (totalCalories) totalCalories.textContent = totalCal + ' kcal';
+
+            if (progressLabel) progressLabel.textContent = 'Meta diaria personalizada: ' + userDailyCalories + ' kcal';
+            if (progressPercent) progressPercent.textContent = Math.round((totalCal / userDailyCalories) * 100) + '%';
+            if (progressFill) {
+                progressFill.style.width = percent + '%';
+                if (percent > 100) {
+                    progressFill.classList.add('warning');
+                } else {
+                    progressFill.classList.remove('warning');
+                }
+            }
+
+            // Status message
+            if (calorieStatus) {
+                const diff = totalCal - userDailyCalories;
+                if (diff < -500) {
+                    calorieStatus.style.background = 'rgba(52, 152, 219, 0.2)';
+                    calorieStatus.style.color = '#5dade2';
+                    calorieStatus.textContent = '⚠️ Estás por debajo de tu meta. Considera agregar más alimentos nutritivos.';
+                } else if (diff > 500) {
+                    calorieStatus.style.background = 'rgba(231, 111, 81, 0.2)';
+                    calorieStatus.style.color = 'var(--danger)';
+                    calorieStatus.textContent = '⚠️ Has superado tu meta en ' + diff + ' kcal. Considera reducir porciones.';
+                } else {
+                    calorieStatus.style.background = 'rgba(42, 157, 143, 0.2)';
+                    calorieStatus.style.color = 'var(--primary)';
+                    calorieStatus.textContent = '✅ ¡Estás en rango ideal! Diferencia: ' + Math.abs(diff) + ' kcal';
+                }
+            }
+        }
+
+        // Event listeners for food calculator
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBox = document.getElementById('searchBox');
+            if (searchBox) {
+                searchBox.addEventListener('input', (e) => {
+                    renderFoodList(e.target.value, currentCategory);
+                });
+            }
+
+            const foodCategories = document.getElementById('foodCategories');
+            if (foodCategories) {
+                foodCategories.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('category-btn')) {
+                        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+                        currentCategory = e.target.dataset.category;
+                        renderFoodList(document.getElementById('searchBox')?.value || '', currentCategory);
+                    }
+                });
+            }
+
+            const clearBtn = document.getElementById('clearBtn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    selectedFoods = [];
+                    renderSummary();
+                });
+            }
+        });
+</script>
 
 </body>
 </html        // ========== PERSONAL DATA CALCULATOR ==========
@@ -2063,10 +2215,17 @@
             // Show results
             document.getElementById('resultsPanel').classList.add('show');
 
-            // Scroll to results
-            document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // Show step 3 (food selector)
+            document.getElementById('step3').style.display = 'block';
+            document.getElementById('userCalorieDisplay').textContent = dailyCalories;
 
-            // Update calculator progress bar if it exists
+            // Initialize food list
+            renderFoodList();
+
+            // Scroll to step 3
+            document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Update calculator progress
             updateCalculatorProgress();
         }
 
