@@ -46,7 +46,7 @@ background:#e9f5f3;
 padding:30px;
 border-radius:20px;
 }
-input{
+input, select{
 width:100%;
 padding:12px;
 margin-top:8px;
@@ -88,9 +88,8 @@ text-align:center;
 <section>
 <h2>¿Por qué Nutrisana?</h2>
 <p>
-La mala alimentación y la desinformación nutricional influyen negativamente en la salud.
-Nutrisana busca educar a la comunidad mediante información clara, confiable y herramientas interactivas
-que promuevan mejores decisiones alimentarias.
+Nutrisana es una plataforma educativa que busca combatir la desinformación nutricional
+y promover hábitos alimentarios saludables mediante información clara y herramientas interactivas.
 </p>
 </section>
 
@@ -117,8 +116,36 @@ que promuevan mejores decisiones alimentarias.
 </div>
 </section>
 
+<!-- CALCULADORA RECOMENDADA -->
 <section>
-<h2>🧮 Calculadora de Calorías Consumidas</h2>
+<h2>🧮 Calculadora de Calorías Recomendadas</h2>
+
+<div class="calculator">
+<label>Sexo:</label>
+<select id="sexo">
+<option value="">Seleccionar</option>
+<option value="male">Hombre</option>
+<option value="female">Mujer</option>
+</select>
+
+<label>Edad (años):</label>
+<input type="number" id="edad">
+
+<label>Estatura (cm):</label>
+<input type="number" id="estatura">
+
+<label>Peso (kg):</label>
+<input type="number" id="peso">
+
+<button onclick="calcularRecomendadas()">Calcular calorías diarias</button>
+
+<div class="result" id="resultadoRecomendadas"></div>
+</div>
+</section>
+
+<!-- CALCULADORA CONSUMIDAS -->
+<section>
+<h2>🍽️ Calculadora de Calorías Consumidas</h2>
 
 <div class="calculator">
 <label>Calorías del alimento (kcal):</label>
@@ -127,9 +154,9 @@ que promuevan mejores decisiones alimentarias.
 <label>Cantidad de porciones:</label>
 <input type="number" id="qty" value="1">
 
-<button onclick="calcular()">Calcular Calorías</button>
+<button onclick="calcularConsumidas()">Calcular calorías</button>
 
-<div class="result" id="resultado"></div>
+<div class="result" id="resultadoConsumidas"></div>
 </div>
 </section>
 
@@ -137,8 +164,7 @@ que promuevan mejores decisiones alimentarias.
 <h2>Objetivo del Proyecto</h2>
 <p>
 Concientizar a la comunidad sobre la importancia de una alimentación saludable,
-prevenir riesgos para la salud derivados de malos hábitos alimentarios
-y combatir la desinformación mediante una plataforma web educativa.
+prevenir problemas de salud y combatir la publicidad engañosa mediante una plataforma web educativa.
 </p>
 </section>
 
@@ -150,18 +176,42 @@ Nutrisana © 2026
 </footer>
 
 <script>
-function calcular(){
+// CALORÍAS RECOMENDADAS (Mifflin-St Jeor)
+function calcularRecomendadas(){
+const sexo=document.getElementById("sexo").value;
+const edad=Number(document.getElementById("edad").value);
+const estatura=Number(document.getElementById("estatura").value);
+const peso=Number(document.getElementById("peso").value);
+
+if(!sexo||!edad||!estatura||!peso){
+alert("Completa todos los campos");
+return;
+}
+
+let tmb;
+if(sexo==="male"){
+tmb=10*peso+6.25*estatura-5*edad+5;
+}else{
+tmb=10*peso+6.25*estatura-5*edad-161;
+}
+
+const calorias=Math.round(tmb);
+document.getElementById("resultadoRecomendadas").textContent=
+"Calorías diarias recomendadas: "+calorias+" kcal";
+}
+
+// CALORÍAS CONSUMIDAS
+function calcularConsumidas(){
 const cal=Number(document.getElementById("cal").value);
 const qty=Number(document.getElementById("qty").value);
 
-if(!cal || !qty){
+if(!cal||!qty){
 alert("Ingresa valores válidos");
 return;
 }
 
-const total=cal*qty;
-document.getElementById("resultado").textContent =
-"Calorías totales consumidas: " + total + " kcal";
+document.getElementById("resultadoConsumidas").textContent=
+"Calorías totales consumidas: "+(cal*qty)+" kcal";
 }
 </script>
 
